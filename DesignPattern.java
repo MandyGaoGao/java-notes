@@ -60,13 +60,11 @@ public class MyClass{
 //coupling(subject and observer)
 //one object to many dependents
 //a behavioural pattern at execution running time
+/////////////////////////////////////
 subject(interface)
     register(observer)
     un-re (observer)
     notify(observer)
-
-observer (interface)
-    update()//this is up to observer to decide whether to be notified,and handle updates//can be in subject too
 
 Concretesubject(class) //this is implement subject interface
     observerList(list) //keep track of registered observers
@@ -74,12 +72,14 @@ Concretesubject(class) //this is implement subject interface
         o.update();// update for all the observers
             }
         }
+//-----------------------        
+observer (interface)
+    update()//this is up to observer to decide whether to be notified,and handle updates//can be in subject too
 
 ConcreteObserver(class)//to implement the Observer
     ConcreteObserver(Subjects){}//arg: Subject is teh argument for seeting which is the oberserve watching, sub in ****constructor***
     Subject.register(this)//put this to the observer list of this subject
-
-//................................................................
+///////////////////////////////////////////////////////////////
 import jav.until.ArrayList;
 public interface Subject{
     void register(Observer o);
@@ -125,12 +125,26 @@ public class Subscriber implements Observer{
     }
 }
 //----------------------------------------------------
+public class chicken implements Observer{
+    chicken(Subject s){
+        s.register(this);
+    }
+    
+    public void update(String msg){
+        System.out.println("chicken got message");
+    }
+}
+
 public class MyClass {
-    public static void main(STring[] args){
+    public static void main(String[] args){
         Subject topic50001=new Topic();
         Subscriber  man=new sub (topic50001,'man');
         Subscriber norman=new Subscriber(topic50001,'norman');
         topic50001.addMessage('mocttest');
+        topic50001.somethingHappen('class start');
+        chicken c=new chicken(topic50001);
+        topic50001.somethingHappen('chicken!!');
+
     }
 }
 
