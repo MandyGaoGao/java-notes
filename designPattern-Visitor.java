@@ -37,13 +37,14 @@ public interface Visitable{
 }
 class book implements Visitable {
     private double weight;
-    public void accept(visiotr v){
+    public void accept(visitor v){
         v.visit(this);
     }
 }
 class CD implements Visitable {
     private double size;
-    public void accept(visiotr v){
+    public void accept(visitor v){
+        //defines the interface it can accepts,thus able to be calculated differently
         v.visit(this);
     }
 }
@@ -68,7 +69,8 @@ public class PstageCalculator implements visitor{
 }
 
 /////////////////diff type of calculating-name visitor interface -diff concrete class of viistor///////////////////
-public class PostageCal2 implements visiotr{
+//specify which type of items can be handled
+public class PostageCal2 implements visitor{
     private double totalPostage=0;
     public void visit(Book b){
         totalPostage+=b.getsWeight()*200;
@@ -110,6 +112,23 @@ public class MyClass{
         
     }
 
+/////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+class Visitor3{
+    private double totalPostage=0;
+    public double getPostage(){return totalPostage;}
+    public void visit(Object o){
+        if (o instanceof book){
+            totalPostage+=((book) o).getWeight();
+        }
+        else if(o instanceof CD){
+            totalPostage+=20;
+        }
+        else{System.out.println('item unknow');}
+    }
+}
 
+Visitor3.visit(new Circle());
+//possible
 
 
